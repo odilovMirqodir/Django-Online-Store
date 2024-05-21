@@ -1,0 +1,32 @@
+{% load static %}
+{% load i18n %}
+<div class="header_panel">
+    <div class="header_panel-item">
+        <img src="{% static 'store/images/icons/search_icon.svg' %}" alt="">
+    </div>
+    <div class="header_panel-item">
+        <a href="{% url 'favourite' %}">
+            <img src="{% static 'store/images/icons/basket_icon.svg' %}" alt="">
+        </a>
+    </div>
+    <div class="header_panel-item">
+        <!--                    <img src="{% static 'store/images/icons/ru_lang_icon.svg' %}" alt="">-->
+        <div class="lang-selector small">
+            <ul class="breaklist inlblk">
+                {% get_current_language as current_language %}
+                {% get_available_languages as available_languages %}
+                {% get_language_info_list for available_languages as langs %}
+                {% for lang in langs %}
+                <li class="inlblk">
+                    <a href="/{{ lang.code }}"><span class="x-normal">{{ lang.code|upper }}</span></a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+
+    </div>
+    <div class="header_panel-item">
+        <img src="{% static 'store/images/icons/user_icon.svg' %}" alt="">
+    </div>
+</div>

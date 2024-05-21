@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block title %}
+{{ title }}
+{% endblock title %}
+
+{% block header_text %}
+
+{% endblock header_text %}
+
+{% block header_poster %}
+
+{% endblock header_poster %}
+
+{% block main %}
+<section class="h-100 h-custom" style="background-color: #d2c9ff;">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12">
+                <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+                    <div class="card-body p-0">
+                        <div class="row g-0">
+                            <div class="col-lg-8">
+                                <div class="p-5">
+                                    <div class="d-flex justify-content-between align-items-center mb-5">
+                                        <h1 class="fw-bold mb-0 text-black">Shopping Cart</h1>
+                                        <div>
+                                            <h5 class="mb-0 text-muted mb-3">Umumiy soni: {{ order.get_cart_total_quantity }}</h5>
+                                            <h5 class="mb-0 text-muted">Umumiy narxi: {{ order.get_cart_total_price }}</h5>
+                                        </div>
+                                    </div>
+                                    {% for item in items %}
+                                    {% include 'store/components/_cart_row.html' %}
+                                    {% endfor %}
+                                    <div class="pt-5">
+                                        <h6 class="mb-0"><a href="#!" class="text-body"><i
+                                                class="fas fa-long-arrow-alt-left me-2"></i>Back to shop</a></h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 bg-grey">
+                                <form action="{% url 'payment' %}" method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div class="p-5">
+                                        <div id="user-info">
+                                            <hr>
+                                            <h3>Sizning malumotlaringiz</h3>
+                                            <hr>
+                                            {% if request.user.first_name and request.user.last_name %}
+                                            <div class="form-field mb-4">
+                                                {{ customer_form.first_name }}
+                                            </div>
+                                            <div class="form-field mb-4">
+                                                {{ customer_form.last_name }}
+                                            </div>
+                                            {% else %}
+                                            <div class="form-field mb-4">
+                                                Sizning ismingiz: <strong>{{ request.user.first_name }}</strong>
+                                            </div>
+                                            <div class="form-field mb-4">
+                                                Sizning familyangiz: <strong>{{ request.user.last_name }}</strong>
+                                            </div>
+                                            {% endif %}
+
+                                        </div>
+                                        <div id="shipping-info">
+                                            <hr>
+                                            <h3>Yetkazib berish manzili</h3>
+                                            <hr>
+                                            {% for field in shipping_form %}
+                                            <div class="form-field mb-4">
+                                                {{ field }}
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                        <button class="btn btn-success" type="submit">Buyurtma berish</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock main %}

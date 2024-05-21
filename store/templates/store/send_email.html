@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block header_text %}
+{% endblock header_text %}
+
+{% block header_poster %}
+{% endblock header_poster %}
+
+{% block main %}
+
+{% if request.user.is_superuser %}
+<div class="container">
+    <h3>Pochta matni</h3>
+    <form action="{% url 'send_email' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+        <textarea name="text" cols="30" rows="10" placeholder="Text...." class="form-control"></textarea>
+        <button class="btn btn-success" type="submit">Yuborish</button>
+    </form>
+</div>
+{% endif %}
+
+{% endblock main %}

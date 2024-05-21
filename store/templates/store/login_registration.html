@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block title %}
+{{ title }}
+{% endblock title %}
+
+{% block header_text %}
+
+{% endblock header_text %}
+
+{% block header_poster %}
+
+{% endblock header_poster %}
+
+{% block main %}
+<main>
+    {% if messages %}
+    <div class="container">
+        {% for message in messages %}
+        <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ mesage.tags }} {% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+
+
+
+    <div class="container d-flex justify-content-around">
+        <div class="login" style="width: 400px; border: solid grey 2px; padding: 50px; margin-bottom: 50px;">
+            <h2 class="form-title">
+                Accoundga kirish
+            </h2>
+            <form action="{% url 'login' %}" class="login=form" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group" style="margin-top: 20px">
+                    {{ login_form.username }}
+                </div>
+                <div class="form-group" style="margin-top: 20px">
+                    {{ login_form.password }}
+                </div>
+                <button type="submit" class="btn btn-primary">Kirish</button>
+            </form>
+        </div>
+
+
+        <div class="registration" style="width: 400px; border: solid grey 2px; padding: 50px; margin-bottom: 50px;">
+            <h2 class="form-title">
+                Registration
+            </h2>
+            <form action="{% url 'register' %}" class="login=form" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group" style="margin-top: 20px">
+                    {{ registration_form.username }}
+                </div>
+                <div class="form-group" style="margin-top: 20px">
+                    {{ registration_form.email }}
+                </div>
+                <div class="form-group" style="margin-top: 20px">
+                    {{ registration_form.password1 }}
+                </div>
+                <div class="form-group" style="margin-top: 20px">
+                    {{ registration_form.password2 }}
+                </div>
+                <button type="submit" class="btn btn-primary">Register</button>
+            </form>
+        </div>
+    </div>
+</main>
+{% endblock main %}
